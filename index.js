@@ -9,39 +9,53 @@ function capitalize(s){
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 }
 
-function playRound(playerSelection, computerSelection){
-  playerSelection = capitalize(playerSelection);
+function playRound(e){
+  const text = document.createElement('div');
+  const container = document.querySelector('.container');
+  const computerSelection = computerPlay();
+  const playerSelection = capitalize(e.srcElement.getAttribute('class'));
+
   if(playerSelection === 'Rock'){
     switch(computerSelection) {
       case 'Rock': 
-        return "Draw Rock Rock";
+        text.textContent = "Draw Rock Rock";
+        break;
       case 'Paper':
-        return "You Lose! Paper beats Rock";
+        text.textContent = "You Lose! Paper beats Rock";
+        break;
       case 'Scissors':
-        return "You Win! Rock beats Scissors";
+        text.textContent = "You Win! Rock beats Scissors";
+        break;
         
     }
   }
   else if(playerSelection === 'Paper'){
     switch(computerSelection) {
       case 'Rock':
-        return "You Win! Paper beats Rock";
+        text.textContent = "You Win! Paper beats Rock";
+        break;
       case 'Paper':
-        return "Draw Paper Paper";
+        text.textContent = "Draw Paper Paper";
+        break;
       case 'Scissors':
-        return "You Lose! Scissors beats Paper";
+        text.textContent = "You Lose! Scissors beats Paper";
+        break;
     }
   }
   else if(playerSelection === 'Scissors'){
     switch(computerSelection) {
       case 'Rock':
-        return "You Lose! Rock beats Scissors";
+        text.textContent = "You Lose! Rock beats Scissors";
+        break;
       case 'Paper':
-        return "You Win! Scissors beats Paper";
+        text.textContent = "You Win! Scissors beats Paper";
+        break;
       case 'Scissors':
-        return "Draw Scissors Scissors";
+        text.textContent = "Draw Scissors Scissors";
+        break;
     }
   }
+  container.appendChild(text);
 }
 
 function game(){
@@ -71,4 +85,6 @@ function game(){
 
 }
 
-game();
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', playRound));
