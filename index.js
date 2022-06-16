@@ -1,5 +1,6 @@
-
-
+let playerScore = 0;
+let computerScore = 0;
+const gameScore = 5;
 function computerPlay(){
   let arr = ['Rock', 'Paper', 'Scissors'];
   return arr[Math.floor((Math.random()*3))];
@@ -14,7 +15,7 @@ function playRound(e){
   const container = document.querySelector('.container');
   const computerSelection = computerPlay();
   const playerSelection = capitalize(e.srcElement.getAttribute('class'));
-
+  const score = document.createElement('div');
   if(playerSelection === 'Rock'){
     switch(computerSelection) {
       case 'Rock': 
@@ -22,9 +23,11 @@ function playRound(e){
         break;
       case 'Paper':
         text.textContent = "You Lose! Paper beats Rock";
+        computerScore++;
         break;
       case 'Scissors':
         text.textContent = "You Win! Rock beats Scissors";
+        playerScore++;
         break;
         
     }
@@ -33,12 +36,14 @@ function playRound(e){
     switch(computerSelection) {
       case 'Rock':
         text.textContent = "You Win! Paper beats Rock";
+        playerScore++;
         break;
       case 'Paper':
         text.textContent = "Draw Paper Paper";
         break;
       case 'Scissors':
         text.textContent = "You Lose! Scissors beats Paper";
+        computerScore++;
         break;
     }
   }
@@ -46,16 +51,30 @@ function playRound(e){
     switch(computerSelection) {
       case 'Rock':
         text.textContent = "You Lose! Rock beats Scissors";
+        computerScore++;
         break;
       case 'Paper':
         text.textContent = "You Win! Scissors beats Paper";
+        playerScore++;
         break;
       case 'Scissors':
         text.textContent = "Draw Scissors Scissors";
         break;
     }
   }
+  score.textContent = `your score:${playerScore}, computer's score:${computerScore}`;
   container.appendChild(text);
+  container.appendChild(score);
+  if(playerScore === gameScore){
+    const winMessage = document.createElement('div')
+    winMessage.textContent = `Congrats! You win!`
+    container.appendChild(winMessage);
+  }
+  else if(computerScore === gameScore){
+    const winMessage = document.createElement('div')
+    winMessage.textContent = `Congrats! Computer win!`
+    container.appendChild(winMessage);
+  }
 }
 
 function game(){
